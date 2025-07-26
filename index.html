@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>料金表スライサー</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+    .swiper {
+      width: 100%;
+      height: 100vh;
+    }
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><video autoplay muted playsinline onended="this.pause();" src="6.mp4"></video></div>
+    </div>
+    <!-- ナビゲーションボタン -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      loop: false,
+      allowTouchMove: true,
+    });
+
+    // 再生コントロール（スライド切り替え時に再生＆1回だけ）
+    swiper.on('slideChange', () => {
+      document.querySelectorAll('video').forEach(video => {
+        video.pause();
+        video.currentTime = 0;
+      });
+      const currentVideo = swiper.slides[swiper.activeIndex].querySelector('video');
+      if (currentVideo) {
+        currentVideo.play();
+      }
+    });
+  </script>
+</body>
+</html>
