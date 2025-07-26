@@ -1,1 +1,0 @@
-# notion_pricing-list_kor2
